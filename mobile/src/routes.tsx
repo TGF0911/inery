@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import MedicineDetails from './pages/MedicineDetails';
 import AlarmDetails from './pages/AlarmDetails';
+import AlarmUpdate from './pages/AlarmUpdate';
 
 const {Navigator, Screen} = createDrawerNavigator()
 // const Stack = createStackNavigator()
@@ -21,6 +22,7 @@ export default function Routes() {
         <Screen name="HomePage" component={HomePage} />
         <Screen name="MedicineDetails" component={MedicineDetails} />
         <Screen name="AlarmDetails" component={AlarmDetails} />
+        <Screen name="AlarmUpdate" component={AlarmUpdate} />
       </Navigator>
     </NavigationContainer>
   )

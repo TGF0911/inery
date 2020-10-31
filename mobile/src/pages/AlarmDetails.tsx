@@ -13,6 +13,10 @@ export default function AlarmDetails() {
     navigation.goBack()
   }
 
+  function navigateToAlarmUpdate() {
+    navigation.navigate('AlarmUpdate');
+}
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -64,7 +68,7 @@ export default function AlarmDetails() {
             <TouchableOpacity onPress={()=>alert('delete')}>
               <Feather name="trash-2" size={28} color="red"/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>alert('edit')}>
+            <TouchableOpacity onPress={()=>navigateToAlarmUpdate()}>
               <Feather name="edit" size={28} color="#37C77F"/>
             </TouchableOpacity>
           </View>
