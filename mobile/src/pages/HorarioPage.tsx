@@ -3,7 +3,7 @@ import { StyleSheet,TextInput, View, Text,  TouchableOpacity, } from 'react-nati
 import {Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-export default function AlarmUpdate() {
+export default function HorarioPage() {
 
   const navigation = useNavigation();
 
@@ -15,7 +15,7 @@ export default function AlarmUpdate() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Alterar alarme</Text>
+        <Text style={styles.headerText}>Escolha o horário</Text>
         <TouchableOpacity onPress={navigateBack}>
           <Feather name="arrow-left" size={28} color="#FF9900"/>
         </TouchableOpacity>
@@ -28,8 +28,8 @@ export default function AlarmUpdate() {
           onChangeText={text => onChangeText(text)}
           value={value}/>
         
-        <TouchableOpacity style={styles.nextButton} onPress={() => alert('BotaoCadastrar')}>
-          <Text style={styles.nextButtonText}>Cadastrar</Text>
+        <TouchableOpacity style={styles.nextButton} onPress={() => alert('Ai volta pra home')}>
+          <Text style={styles.nextButtonText}>Cadastrar novo Alarme</Text>
         </TouchableOpacity>
       </View>
         

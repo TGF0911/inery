@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, ScrollView, StyleSheet, TouchableOpacity, FlatList, Image
+  View, Text, ScrollView, StyleSheet, TouchableOpacity, Image
 } from 'react-native';
-import Constants from 'expo-constants';
 
 import logoImg from '../assets/logo-medicine.png'
 
 import { Feather } from '@expo/vector-icons';
 import api from '../service/api';
 import { useNavigation } from '@react-navigation/native';
-
-
 
 interface Recipe {
   id: number;
@@ -40,6 +37,10 @@ export default function HomePage() {
        navigation.navigate('AlarmDetails');
    }
 
+   function navigateToMedicinePage() {
+    navigation.navigate('MedicinePage');
+}
+
   async function loadRecipes() {
     if (loading)
       return;
@@ -66,16 +67,22 @@ export default function HomePage() {
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
+    
+    <View style={styles.container}>
       <View style={styles.header}>
         <Image source={logoImg} />
-        <Text style={styles.title}>Bem vindo(a)! Thais </Text>
-        
+        <Text style={styles.headerText}>Meus Alarmes</Text>
       </View>
 
-      <Text style={styles.description}>Aqui estão seus alarmes. Fique atento(a)!!</Text>
+      <TouchableOpacity style={styles.nextButton} onPress={() => navigateToMedicinePage()}>
+            <Text style={styles.nextButtonText}>Novo Alarme</Text>
+      </TouchableOpacity>
 
-      <View>
+      <TouchableOpacity style={styles.nextButton} onPress={() => navigateToAlarmDetails()}>
+            <Text style={styles.nextButtonText}>ALARM DETAILS</Text>
+      </TouchableOpacity>
+
+      <ScrollView style={styles.menu}>
 
       <View style={styles.recipesList} >
           {recipes.map((recipe: Recipe) => (
@@ -103,39 +110,45 @@ export default function HomePage() {
             </View>
           ))}
         </View>
+        </ScrollView>
       </View>
-
-
-    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 24,
-    paddingTop: Constants.statusBarHeight,
+    backgroundColor:"#DCDCDC",
   },
 
   header: {
+    padding:5,
+    paddingHorizontal:20,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent:'space-around',
+    backgroundColor:'#fff',
+    paddingTop:15,
+    marginBottom:10
   },
 
   headerText: {
-    fontSize: 15,
-    color: '#737380',
+    fontSize: 30,
+    color: '#13131a',
+    fontWeight: 'bold',
+    marginRight:20
   },
 
   headerTextBold: {
     fontWeight: 'bold',
   },
-
+  menu:{
+    marginHorizontal:15,
+  },
   title: {
     fontSize: 30,
-    marginBottom: 16,
-    marginTop: 48,
+    marginBottom: 15,
+    marginTop: 15,
     color: '#13131a',
     fontWeight: 'bold',
   },
@@ -180,6 +193,20 @@ const styles = StyleSheet.create({
     color: '#E02041',
     fontSize: 15,
     fontWeight: 'bold',
-  }
+  },
+  nextButton: {
+    backgroundColor: "#DD3355",
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 56,
+    marginTop: 20,
+    marginBottom: 30,
+    marginHorizontal:15,
+  },
+  nextButtonText: {
+    fontSize: 22,
+    color: '#fff'
+  },
 
 })
