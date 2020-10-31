@@ -63,7 +63,11 @@ export default function AlarmDetails() {
     navigate('HomePage');
   }
 
- 
+
+  function navigateToAlarmUpdate() {
+    navigation.navigate('AlarmUpdate');
+}
+
   async function handleDeleteRecipe(id: number) {
     await api.delete(`/recipe/${id}`)
     alert('Este alarme foi deletado.');
@@ -105,8 +109,28 @@ export default function AlarmDetails() {
           {recipe.description}
         </Text>
 
+        <View style={styles.alarme}>
+         <View >
+            <Text style={styles.alarmeTextGrande}>
+            Horário: 18:00
+            </Text>
+            <Text style={styles.alarmeTextPqno}>
+             Remédio anti-alérgico
+            </Text>
+          </View>
+          <View style={styles.alarmeBotao}>
+            <TouchableOpacity onPress={()=>alert('delete')}>
+              <Feather name="trash-2" size={28} color="red"/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigateToAlarmUpdate()}>
+              <Feather name="edit" size={28} color="#37C77F"/>
+            </TouchableOpacity>
+          </View>
+        </View>
+
         {recipe.alarms.map((alarm) => {
           return (
+
 
             <View style={styles.alarme} key={alarm.id} >
               <View >
