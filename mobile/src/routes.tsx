@@ -6,6 +6,8 @@ import {createDrawerNavigator} from '@react-navigation/drawer'
 import CustomOnboarding from './pages/Onboarding';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
+import MedicineDetails from './pages/MedicineDetails';
+import AlarmDetails from './pages/AlarmDetails';
 
 const {Navigator, Screen} = createDrawerNavigator()
 // const Stack = createStackNavigator()
@@ -17,6 +19,8 @@ export default function Routes() {
         <Screen name="Landing" component={CustomOnboarding} />
         <Screen name="LoginPage" component={LoginPage}/>
         <Screen name="HomePage" component={HomePage} />
+        <Screen name="MedicineDetails" component={MedicineDetails} />
+        <Screen name="AlarmDetails" component={AlarmDetails} />
       </Navigator>
     </NavigationContainer>
   )

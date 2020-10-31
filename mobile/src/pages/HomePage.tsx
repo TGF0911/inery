@@ -6,40 +6,39 @@ import Constants from 'expo-constants';
 
 import logoImg from '../assets/logo-medicine.png'
 
-import { FontAwesome5, Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import api from '../service/api';
 import { useNavigation } from '@react-navigation/native';
 
-interface Alarm {
-  id: number;
-  hour: number;
-  minutes: number;
-  week_days: Array<{
-    week_day: number;
-  }>
-}
+
 
 interface Recipe {
   id: number;
   name: string;
   medicine_id: number
   description: string;
-  alarm: Array<Alarm>
+  alarms: Array<{
+    id: number;
+    hour: number;
+    week_days : Array<{
+      id: number;
+      week_day: number;
+    }>
+  }>
 }
 
 export default function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
-  const [alarms, setAlarms] = useState<Alarm[]>([])
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
 
-  // const navigation = useNavigation();
+   const navigation = useNavigation();
 
-  // function navigateToDetail(recipes : Recipe) {
-  //     navigation.navigate('Detail', { recipes });
-  // }
+   function navigateToAlarmDetails() {
+       navigation.navigate('AlarmDetails');
+   }
 
   async function loadRecipes() {
     if (loading)
@@ -70,19 +69,15 @@ export default function HomePage() {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Image source={logoImg} />
-        <Text style={styles.headerText}>
-          Total de <Text style={styles.headerTextBold}>
-            {total} alarmes
-            </Text>
-        </Text>
+        <Text style={styles.title}>Bem vindo(a)! Thais </Text>
+        
       </View>
 
-      <Text style={styles.title}>Bem vindo(a)! Thais </Text>
       <Text style={styles.description}>Aqui estão seus alarmes. Fique atento(a)!!</Text>
 
       <View>
 
-        <View style={styles.recipesList} >
+      <View style={styles.recipesList} >
           {recipes.map((recipe: Recipe) => (
 
             <View style={styles.recipes} key={recipe.id}>
@@ -91,11 +86,16 @@ export default function HomePage() {
               <Text style={styles.recipesValue}>{recipe.name}</Text>
 
               <Text style={styles.recipesProperty}>Horarios:</Text>
-              <Text style={styles.recipesValue}>{recipe.alarm}</Text>
-
+              {recipe.alarms.map((alarm) => {
+                return (
+                  <View key={alarm.id}>
+                    <Text>Horários: {alarm.hour}</Text>                
+                  </View>
+                )
+              })}
 
               <TouchableOpacity style={styles.detailsButton}
-              // onPress={() => navigateToDetail(recipe)}
+               onPress={() => navigateToAlarmDetails()}
               >
                 <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
                 <Feather name="arrow-right" size={16} color="#E02041" />
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 24,
-    paddingTop: Constants.statusBarHeight + 20,
+    paddingTop: Constants.statusBarHeight,
   },
 
   header: {

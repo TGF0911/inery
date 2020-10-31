@@ -17,11 +17,16 @@ export default function LoginPage() {
           style={styles.input}
         />
         <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('HomePage')}>
-          <Text style={styles.nextButtonText}>Cadastrar</Text>
+          <Text style={styles.nextButtonText}>Entrar</Text>
         </TouchableOpacity>
 
-        <Text style={styles.withoutRegister}>Esqueceu a senha?</Text>
-        <Text style={styles.withoutRegister}>Ainda não se cadastrou?</Text>
+        <TouchableOpacity onPress={() => alert('ZZZ')}>
+          <Text style={styles.withoutRegister}>Esqueceu a senha?</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => alert('ZZZ')}>
+          <Text style={styles.withoutRegister}>Ainda não se cadastrou?</Text>
+        </TouchableOpacity>
+        
 
       </View>
     </View>
@@ -32,7 +37,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: '#2867C3',
+    backgroundColor: '#FF9900',
     justifyContent: 'center',
   },
   label: {
@@ -53,7 +58,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
   nextButton: {
-    backgroundColor: "#87F7CC",
+    backgroundColor: "#DD3355",
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -61,8 +66,8 @@ const styles = StyleSheet.create({
     marginTop: 28,
   },
   nextButtonText: {
-    fontSize: 16,
-    color: '#1d153a'
+    fontSize: 22,
+    color: '#fff'
   },
   withoutRegister: {
     color: '#87F7CC',
