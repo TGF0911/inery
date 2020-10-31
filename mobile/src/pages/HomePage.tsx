@@ -9,6 +9,7 @@ import logoImg from '../assets/logo-medicine.png'
 import { Feather } from '@expo/vector-icons';
 import api from '../service/api';
 import { useNavigation } from '@react-navigation/native';
+import convertMinutesToHours from '../utils/convertToHours';
 
 
 
@@ -34,6 +35,11 @@ export default function HomePage() {
 
    function navigateToAlarmDetails(id : number) {
        navigation.navigate('AlarmDetails', {id});
+   }
+
+   function changeHour(hour : number){
+    const [hours, minutes] = convertMinutesToHours(hour)
+    return `${hours}:${minutes}`
    }
 
 
@@ -65,7 +71,7 @@ export default function HomePage() {
               {recipe.alarms.map((alarm) => {
                 return (
                   <View key={alarm.id}>
-                    <Text>Horários: {alarm.hour}</Text>                
+                    <Text>Horários: {changeHour(alarm.hour)}</Text>                
                   </View>
                 )
               })}
