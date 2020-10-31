@@ -1,25 +1,43 @@
-import React from 'react';
-import { StyleSheet,ScrollView, View, Text, Image, TouchableOpacity  } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
 import logoImg from '../assets/logo-medicine.png'
-import {Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import api from '../service/api';
 
+
+interface Medicine {
+  id: number;
+  name: string;
+  description: string;
+  photo: string;
+}
 
 export default function MedicinePage() {
 
+  const [medicines, setMedicines] = useState<Medicine[]>([])
+
   const navigation = useNavigation();
 
-  function navigateBack(){
+  function navigateBack() {
     navigation.goBack()
   }
 
   function navigateToAlarmUpdate() {
     navigation.navigate('AlarmUpdate');
-}
+  }
 
-function navigateToHorarioPage() {
-  navigation.navigate('HorarioPage');
-}
+  function handleAddMedicine(id: number) {
+    navigation.navigate('HorarioPage', {id})
+  }
+
+  function navigateToHorarioPage() {
+    navigation.navigate('HorarioPage');
+  }
+
+  useEffect(() => {
+    api.get('/medicine').then(({ data }) => setMedicines(data))
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -27,141 +45,55 @@ function navigateToHorarioPage() {
         <Image source={logoImg} />
         <Text style={styles.headerText}>Escolha o medicamento</Text>
         <TouchableOpacity onPress={navigateBack}>
-          <Feather name="arrow-left" size={28} color="#FF9900"/>
+          <Feather name="arrow-left" size={28} color="#FF9900" />
         </TouchableOpacity>
-     
+
       </View>
+
       <ScrollView style={styles.menu}>
 
-        <View style={styles.remedio}>
-          <Image source={logoImg} />
-         <View >
-           <Text style={styles.remedioText}>
-            Nome:
+        {medicines.map(medicine => {
+          return (
+            <View style={styles.remedio} key={medicine.id} >
+              <Image source={{uri : medicine.photo}} />
+              <View >
+                <Text style={styles.remedioText}>
+                  Nome:
             </Text>
-            <Text style={styles.remedioText}>
-             Loratadina
+                <Text style={styles.remedioText}>
+                  {medicine.name}
            </Text>
-           <Text  style={styles.remedioText}>
-             Descrição:
+                <Text style={styles.remedioText}>
+                  Descrição:
             </Text>
-            <Text style={styles.remedioText}>
-             Remédio anti-alérgico
+                <Text style={styles.remedioText}>
+                  {medicine.description}
            </Text>
-          </View>
-        </View>
+              </View>
+              <TouchableOpacity onPress={() => handleAddMedicine(medicine.id)}> 
+                <Feather name="plus" size={28} color="#008db7"/>
+              </TouchableOpacity>
+            </View>
 
-        <View style={styles.remedio}>
-          <Image source={logoImg} />
-         <View >
-           <Text style={styles.remedioText}>
-            Nome:
-            </Text>
-            <Text style={styles.remedioText}>
-             Loratadina
-           </Text>
-           <Text  style={styles.remedioText}>
-             Descrição:
-            </Text>
-            <Text style={styles.remedioText}>
-             Remédio anti-alérgico
-           </Text>
-          </View>
-        </View>
-        <View style={styles.remedio}>
-          <Image source={logoImg} />
-         <View >
-           <Text style={styles.remedioText}>
-            Nome:
-            </Text>
-            <Text style={styles.remedioText}>
-             Loratadina
-           </Text>
-           <Text  style={styles.remedioText}>
-             Descrição:
-            </Text>
-            <Text style={styles.remedioText}>
-             Remédio anti-alérgico
-           </Text>
-          </View>
-        </View>
-        <View style={styles.remedio}>
-          <Image source={logoImg} />
-         <View >
-           <Text style={styles.remedioText}>
-            Nome:
-            </Text>
-            <Text style={styles.remedioText}>
-             Loratadina
-           </Text>
-           <Text  style={styles.remedioText}>
-             Descrição:
-            </Text>
-            <Text style={styles.remedioText}>
-             Remédio anti-alérgico
-           </Text>
-          </View>
-        </View>
-        <View style={styles.remedio}>
-          <Image source={logoImg} />
-         <View >
-           <Text style={styles.remedioText}>
-            Nome:
-            </Text>
-            <Text style={styles.remedioText}>
-             Loratadina
-           </Text>
-           <Text  style={styles.remedioText}>
-             Descrição:
-            </Text>
-            <Text style={styles.remedioText}>
-             Remédio anti-alérgico
-           </Text>
-          </View>
-        </View>
-        <View style={styles.remedio}>
-          <Image source={logoImg} />
-         <View >
-           <Text style={styles.remedioText}>
-            Nome:
-            </Text>
-            <Text style={styles.remedioText}>
-             Loratadina
-           </Text>
-           <Text  style={styles.remedioText}>
-             Descrição:
-            </Text>
-            <Text style={styles.remedioText}>
-             Remédio anti-alérgico
-           </Text>
-          </View>
-        </View>
-        <View style={styles.remedio}>
-          <Image source={logoImg} />
-         <View >
-           <Text style={styles.remedioText}>
-            Nome:
-            </Text>
-            <Text style={styles.remedioText}>
-             Loratadina
-           </Text>
-           <Text  style={styles.remedioText}>
-             Descrição:
-            </Text>
-            <Text style={styles.remedioText}>
-             Remédio anti-alérgico
-           </Text>
-          </View>
-        </View>
+          )
+        })}
 
-   
+
+
+
+
+
+
+
+
+
       </ScrollView>
 
       <TouchableOpacity style={styles.nextButton} onPress={() => navigateToHorarioPage()}>
-            <Text style={styles.nextButtonText}>Escolher Horário</Text>
-            <Feather name="arrow-right-circle" size={28} color="#fff"/>
+        <Text style={styles.nextButtonText}>Escolher Horário</Text>
+        <Feather name="arrow-right-circle" size={28} color="#fff" />
       </TouchableOpacity>
-      
+
     </View>
   )
 }
@@ -169,24 +101,24 @@ function navigateToHorarioPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"#DCDCDC",
-    
+    backgroundColor: "#DCDCDC",
+
   },
   header: {
-    padding:5,
-    paddingHorizontal:20,
+    padding: 5,
+    paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:'space-between',
-    backgroundColor:'#fff',
-    marginBottom:20,
-    paddingTop:15
+    justifyContent: 'space-between',
+    backgroundColor: '#fff',
+    marginBottom: 20,
+    paddingTop: 15
   },
-  headerText:{
+  headerText: {
     fontSize: 20,
     color: '#13131a',
     fontWeight: 'bold',
-    marginRight:20
+    marginRight: 20
   },
   title: {
     fontSize: 30,
@@ -195,20 +127,20 @@ const styles = StyleSheet.create({
     color: '#13131a',
     fontWeight: 'bold',
   },
-  menu:{
-    marginHorizontal:15,
+  menu: {
+    marginHorizontal: 15,
   },
-  remedio:{
+  remedio: {
     flexDirection: 'row',
-    alignItems:'center',
-    backgroundColor:'#fff',
-    padding:15,
-    borderRadius:15,
-    marginBottom:20,
-    justifyContent:'space-around',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    padding: 15,
+    borderRadius: 15,
+    marginBottom: 20,
+    justifyContent: 'space-around',
   },
-  remedioText:{
-    color:'gray'
+  remedioText: {
+    color: 'gray'
   },
   nextButton: {
     backgroundColor: "#008db7",
@@ -216,9 +148,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 56,
     marginTop: 10,
-    marginBottom:20,
-    marginHorizontal:15,
-    flexDirection:'row',
+    marginBottom: 20,
+    marginHorizontal: 15,
+    flexDirection: 'row',
     justifyContent: 'space-around',
   },
   nextButtonText: {

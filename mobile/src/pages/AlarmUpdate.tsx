@@ -1,9 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet,TextInput, View, Text,  TouchableOpacity, } from 'react-native';
 import {Feather } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import api from '../service/api';
+
+interface Alarm {
+  id: number;
+  hour: number;
+}
+
+interface RouteParams {
+  id: number;
+}
 
 export default function AlarmUpdate() {
+
+  const [alarm, setAlarm] = useState<Alarm>()
+  const route = useRoute()
+  const params = route.params as RouteParams
+
+  const [hour, setHour] = useState(alarm?.hour)
+
+  useEffect(() => {
+    api.get(`alarm/${params.id}`).then((response) => {
+      setAlarm(response.data);
+    });
+    console.log(params.id)
+  }, [params.id]);
+
+  async function handleUpdateAlarm(){
+    await api.put(`/alarms/${params.id}`, { 
+      ...alarm,
+      hour
+    })
+
+    navigation.navigate('HomePage')
+  }
 
   const navigation = useNavigation();
 
@@ -28,8 +60,8 @@ export default function AlarmUpdate() {
           onChangeText={text => onChangeText(text)}
           value={value}/>
         
-        <TouchableOpacity style={styles.nextButton} onPress={() => alert('BotaoCadastrar')}>
-          <Text style={styles.nextButtonText}>Cadastrar</Text>
+        <TouchableOpacity style={styles.nextButton} onPress={handleUpdateAlarm}>
+          <Text style={styles.nextButtonText}>Salvar</Text>
         </TouchableOpacity>
       </View>
         
