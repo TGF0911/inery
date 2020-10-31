@@ -53,13 +53,13 @@ export default function HomePage() {
         <Text style={styles.headerText}>Meus Alarmes</Text>
       </View>
 
-      <TouchableOpacity style={styles.nextButton} onPress={() => navigateToMedicinePage()}>
+      {/* <TouchableOpacity style={styles.nextButton} onPress={() => navigateToMedicinePage()}>
             <Text style={styles.nextButtonText}>Novo Alarme</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.nextButton} onPress={() => navigateToAlarmDetails()}>
             <Text style={styles.nextButtonText}>ALARM DETAILS</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <ScrollView style={styles.menu}>
 

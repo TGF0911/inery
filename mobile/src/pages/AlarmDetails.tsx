@@ -65,7 +65,7 @@ export default function AlarmDetails() {
 
 
   function navigateToAlarmUpdate() {
-    navigation.navigate('AlarmUpdate');
+    navigate('AlarmUpdate');
 }
 
   async function handleDeleteRecipe(id: number) {
