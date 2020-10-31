@@ -26,44 +26,17 @@ interface Recipe {
 
 export default function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
-  const [total, setTotal] = useState(0);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-
 
    const navigation = useNavigation();
 
-   function navigateToAlarmDetails() {
-       navigation.navigate('AlarmDetails');
+   function navigateToAlarmDetails(id : number) {
+       navigation.navigate('AlarmDetails', {id});
    }
 
-   function navigateToMedicinePage() {
-    navigation.navigate('MedicinePage');
-}
 
-  async function loadRecipes() {
-    if (loading)
-      return;
-
-    // if (total > 0 && recipes.length === total)
-    //   return;
-
-    setLoading(true);
-
-    const response = await api.get('/recipe', {
-      headers: {
-        authorization: 3
-      }
-    });
-
-    setRecipes([...recipes, ...response.data]);
-    setTotal(response.headers['x-total-count']);
-    setPage(page + 1);
-    setLoading(false);
-  }
 
   useEffect(() => {
-    loadRecipes();
+    api.get('/recipe', {headers : {authorization : 3}}).then(({ data }) => setRecipes(data));
   }, []);
 
   return (
@@ -102,7 +75,7 @@ export default function HomePage() {
               })}
 
               <TouchableOpacity style={styles.detailsButton}
-               onPress={() => navigateToAlarmDetails()}
+               onPress={() => navigateToAlarmDetails(recipe.id)}
               >
                 <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
                 <Feather name="arrow-right" size={16} color="#E02041" />
