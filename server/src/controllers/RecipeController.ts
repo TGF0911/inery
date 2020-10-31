@@ -4,6 +4,7 @@ import Alarm from '../models/Alarm'
 import Recipe from '../models/Recipe'
 import WeekDay from '../models/WeekDay'
 import convertHourToMinutes from '../utils/convertToMinute'
+import recipeView from '../views/recipe.view'
 
 export default {
   async create(req: Request, res: Response) {
@@ -22,7 +23,7 @@ export default {
       return { week_day: week.week_day }
     })
 
-    
+
     const recipeData = {
       patient_id,
       medicine_id,
@@ -37,7 +38,7 @@ export default {
       hour: convertHourToMinutes(hour),
       week_days
     }
-    
+
 
     const alarm = alarmRepository.create(alarms)
 
@@ -50,53 +51,56 @@ export default {
   },
 
   async index(req: Request, res: Response) {
-    const  patient_id = req.headers.authorization
+    const patient_id = req.headers.authorization
     const recipeRepository = getRepository(Recipe)
 
     const recipes = await recipeRepository.find({
-      where: { patient_id : Number(patient_id)},
+      where: { patient_id: Number(patient_id) },
       relations: ['alarms']
     })
 
-    return res.json(recipes)
+    return res.json(recipeView.renderMany(recipes))
   },
 
-  async show(req: Request, res: Response){
+  async show(req: Request, res: Response) {
     const recipeRepository = getRepository(Recipe)
-    const {id} = req.params
+    const { id } = req.params
 
-    const recipe = await recipeRepository.findOne(id)
+    const recipe = await recipeRepository.findOneOrFail(
+      id,
+      { relations: ['alarms'] }
+    )
 
-    if(!recipe) return res.status(401)
+    if (!recipe) return res.status(401)
 
-    return res.json(recipe)
+    return res.json(recipeView.render(recipe))
   },
 
-  async update(req: Request, res: Response){
-    const {id} = req.params
+  async update(req: Request, res: Response) {
+    const { id } = req.params
 
     const recipeRepository = getRepository(Recipe)
 
     const recipe = await recipeRepository.findOneOrFail(id)
 
-    if(!recipe) return res.status(401)
+    if (!recipe) return res.status(401)
 
     recipeRepository.merge(recipe, req.body)
     const results = await recipeRepository.save(recipe)
     return res.json(results)
   },
 
-  async delete(req: Request, res: Response){
-    const {id} = req.params
+  async delete(req: Request, res: Response) {
+    const { id } = req.params
 
     const recipeRepository = getRepository(Recipe)
 
     const recipe = await recipeRepository.findOneOrFail(id)
 
-    if(!recipe) return res.status(401)
+    if (!recipe) return res.status(401)
 
     await recipeRepository.delete(recipe)
 
-    return res.status(204).json({message: 'recipe deleted', recipe})
+    return res.status(204).json({ message: 'recipe deleted', recipe })
   }
 }
