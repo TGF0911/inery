@@ -62,11 +62,8 @@ export default function HomePage() {
         <TouchableOpacity 
           onPress={() => navigateToProfile(params.patient.id)}
           style={styles.profile}>
-          <Image 
-            source={logoImg} 
-            style={styles.profilePic}
-            resizeMode='contain'/>
-          <Text>Perfil</Text>
+          <Text style={styles.profilePic}>FOTO</Text>
+          <Feather name="edit" size={25} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerText}>Meus Alarmes</Text>
       </View>
@@ -110,16 +107,20 @@ const styles = StyleSheet.create({
     backgroundColor:"#DCDCDC",
   },
   profile:{
-    width:110,
-    height:110,
+    width:120,
+    height:120,
     alignItems:'center',
+    backgroundColor:'#b1cee4',
+    borderRadius:20,
   },
   profilePic:{
     width:90,
     height:90,
-    alignItems:'center',
-    justifyContent:'center',
-    resizeMode:'contain',
+    //resizeMode:'contain',
+  },
+  profileText:{
+    color:'white',
+    fontSize:17
   },
   header: {
     padding:5,

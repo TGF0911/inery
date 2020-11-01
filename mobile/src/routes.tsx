@@ -11,6 +11,7 @@ import AlarmDetails from './pages/AlarmDetails';
 import AlarmUpdate from './pages/AlarmUpdate';
 import HorarioPage from './pages/HorarioPage';
 import Profile from './pages/Profile';
+import ProfileUpdate from './pages/ProfileUpdate';
 
 const {Navigator, Screen} = createDrawerNavigator()
 // const Stack = createStackNavigator()
@@ -27,6 +28,7 @@ export default function Routes() {
         <Screen name="AlarmUpdate" component={AlarmUpdate} />
         <Screen name="HorarioPage" component={HorarioPage}/>
         <Screen name="Profile" component={Profile} />
+        <Screen name="ProfileUpdate" component={ProfileUpdate} />
       </Navigator>
     </NavigationContainer>
   )

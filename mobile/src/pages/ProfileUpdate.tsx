@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Image, TouchableOpacity, TextInput } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import api from '../service/api';
@@ -13,30 +13,22 @@ interface Patient {
 }
 
 interface RouteParams {
-  
-    id : number
+  id: number;
 }
 
 
-export default function Profile() {
+export default function ProfileUpdate() {
   const navigation = useNavigation();
-
-  function navigateToProfileUpdate(id : number){
-    navigation.navigate('ProfileUpdate', {id})
-  }
 
   const [patient, setPatient] = useState<Patient>()
   const route = useRoute()
   const params = route.params as RouteParams;
 
+  const [value, onChangeText] = React.useState('');
+
   useEffect(() => {
     api.get(`/patient/${params.id}`).then(({ data }) => setPatient(data))
   }, [params.id])
-  if(!patient){
-    return (
-      <Text>Loading...</Text>
-    )
-  }
 
   // navigation.navigate('Profile', {id})
 
@@ -50,7 +42,7 @@ export default function Profile() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Meu Perfil</Text>
+        <Text style={styles.headerText}>Alterar Perfil</Text>
         <TouchableOpacity onPress={navigateBack}>
           <Feather name="arrow-left" size={28} color="#FF9900" />
         </TouchableOpacity>
@@ -66,18 +58,26 @@ export default function Profile() {
           <Text style={styles.perfilTextDados}>{patient?.cpf}</Text>
           <Text style={styles.perfilTextDados}>Email:</Text>
           <Text style={styles.perfilTextDados}>{patient?.email}</Text>
+          <TextInput 
+            style={styles.inputText}
+            onChangeText={text => onChangeText(text)}
+            value={value}
+            placeholder="Digite o novo e-mail"
+          />
           <Text style={styles.perfilTextDados}>Senha:</Text>
           <Text style={styles.perfilTextDados}>******</Text>
-          <TouchableOpacity style={styles.perfilButton} onPress={() => navigateToProfileUpdate(patient.id)}>
+          <TextInput 
+            style={styles.inputText}
+            onChangeText={text => onChangeText(text)}
+            value={value}
+            placeholder="Digite a nova Senha"
+          />
+          <TouchableOpacity style={styles.perfilButton} onPress={() => {}}>
             <Feather name="edit" size={25} color="#fff" />
-            <Text style={styles.perfilButtonText}>Alterar</Text>
+            <Text style={styles.perfilButtonText}>Salvar</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <TouchableOpacity style={styles.nextButton} onPress={() => {}}>
-        <Feather name="trash-2" size={25} color="#fff" />
-        <Text style={styles.nextButtonText}>Deletar</Text>
-      </TouchableOpacity>
     </View>
   )
 }
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   perfilButton: {
-    backgroundColor: "#37C77F",
+    backgroundColor: "#1f6af7",
     borderRadius: 8,
     alignItems: 'center',
     height: 40,
@@ -156,19 +156,10 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: '#fff'
   },
-  nextButton: {
-    backgroundColor: "#DD3355",
-    borderRadius: 15,
-    alignItems: 'center',
-    height: 56,
-    marginTop: 10,
-    marginBottom: 20,
-    marginHorizontal: 20,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  nextButtonText: {
-    fontSize: 22,
-    color: '#fff'
+  inputText:{
+    height:30,
+    borderRadius:2,
+    borderColor:'#b1cee4',
+    borderWidth:2,
   },
 })
