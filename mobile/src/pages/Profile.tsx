@@ -21,15 +21,15 @@ interface RouteParams {
 export default function Profile() {
   const navigation = useNavigation();
 
- const [patient, setPatient] = useState<Patient>()
- const route = useRoute()
- const params = route.params as RouteParams;
+  const [patient, setPatient] = useState<Patient>()
+  const route = useRoute()
+  const params = route.params as RouteParams;
 
-useEffect(()=> {
-  api.get(`/patient/${params.id}`).then(({ data }) => setPatient(data))
-}, [params.id])
+  useEffect(() => {
+    api.get(`/patient/${params.id}`).then(({ data }) => setPatient(data))
+  }, [params.id])
 
-// navigation.navigate('Profile', {id})
+  // navigation.navigate('Profile', {id})
 
 
   function navigateBack() {
@@ -47,25 +47,25 @@ useEffect(()=> {
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.menu}>
-        <Image 
-          source={logoImg}
+        <Image
+          source={{uri : patient?.photo}}
           style={styles.img}
         />
         <View style={styles.perfil}>
-          <Text style={styles.perfilTextNome}>COLOQUE O NOME AQUI</Text>
+          <Text style={styles.perfilTextNome}>{patient?.name}</Text>
           <Text style={styles.perfilTextDados}>CPF:</Text>
-          <Text style={styles.perfilTextDados}>444444444444</Text>
+          <Text style={styles.perfilTextDados}>{patient?.cpf}</Text>
           <Text style={styles.perfilTextDados}>Email:</Text>
-          <Text style={styles.perfilTextDados}>444444444444</Text>
+          <Text style={styles.perfilTextDados}>{patient?.email}</Text>
           <Text style={styles.perfilTextDados}>Senha:</Text>
-          <Text style={styles.perfilTextDados}>****</Text>
-          <TouchableOpacity style={styles.perfilButton} onPress={() => {}}>
-        <Feather name="edit" size={25} color="#fff" />
-        <Text style={styles.perfilButtonText}>Alterar</Text>
-      </TouchableOpacity>
-        </View> 
+          <Text style={styles.perfilTextDados}>******</Text>
+          <TouchableOpacity style={styles.perfilButton} onPress={() => { }}>
+            <Feather name="edit" size={25} color="#fff" />
+            <Text style={styles.perfilButtonText}>Alterar</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
-      <TouchableOpacity style={styles.nextButton} onPress={() => {}}>
+      <TouchableOpacity style={styles.nextButton} onPress={() => { }}>
         <Feather name="trash-2" size={25} color="#fff" />
         <Text style={styles.nextButtonText}>Deletar</Text>
       </TouchableOpacity>
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginBottom: 20,
     paddingTop: 15,
-    height:80
+    height: 80
 
   },
   headerText: {
@@ -107,13 +107,13 @@ const styles = StyleSheet.create({
   menu: {
     marginHorizontal: 15,
   },
-  img:{
-    alignItems:'center',
-    alignSelf:'center',
-    resizeMode:'contain',
-    height:120, 
-    width:120,
-    borderRadius:20,
+  img: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    resizeMode: 'contain',
+    height: 120,
+    width: 120,
+    borderRadius: 20,
   },
   perfil: {
     backgroundColor: '#fff',
@@ -124,14 +124,14 @@ const styles = StyleSheet.create({
   perfilTextNome: {
     color: 'gray',
     fontSize: 25,
-    alignSelf:'center',
-    fontWeight:'bold',
-    marginBottom:20,
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
   perfilTextDados: {
     color: 'gray',
     fontSize: 15,
-    marginBottom:10,
+    marginBottom: 10,
   },
   perfilButton: {
     backgroundColor: "#37C77F",
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   perfilButtonText: {
     fontSize: 22,
     color: '#fff'
-  }, 
+  },
   nextButton: {
     backgroundColor: "#DD3355",
     borderRadius: 15,

@@ -42,8 +42,8 @@ export default function HomePage() {
        navigation.navigate('AlarmDetails', {id});
    }
 
-   function navigateToProfile(){
-     navigation.navigate('Profile')
+   function navigateToProfile(id : number){
+     navigation.navigate('Profile', {id})
    }
 
    function changeHour(hour : number){
@@ -60,7 +60,7 @@ export default function HomePage() {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity 
-          onPress={() => navigateToProfile()}
+          onPress={() => navigateToProfile(params.patient.id)}
           style={styles.profile}>
           <Image 
             source={logoImg} 
