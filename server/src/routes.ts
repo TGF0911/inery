@@ -2,14 +2,13 @@ import { Router } from 'express'
 import multer from 'multer'
 import uploadConfig from './config/uploads'
 
-// import authMiddleware from './middlewares/AuthMiddleware'
 
 import AlarmController from './controllers/AlarmController'
-import AuthController from './controllers/AuthController'
 import MedicineController from './controllers/MedicineController'
 import PatientController from './controllers/PatientController'
 import RecipeController from './controllers/RecipeController'
 import IoTController from './controllers/IoTController'
+import SessionController from './controllers/SessionController'
 
 const routes = Router()
 const uploads = multer(uploadConfig)
@@ -38,7 +37,8 @@ routes.get('/alarm/:id', AlarmController.show)
 routes.put('/alarm/:id', AlarmController.update)
 routes.delete('/alarm/:id', AlarmController.delete)
 
-routes.post('/auth', AuthController.authenticate)
+routes.get('/session', SessionController.store)
+
 
 routes.post('/iot/', IoTController.alarm)
 

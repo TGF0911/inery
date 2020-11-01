@@ -7,7 +7,7 @@ export default {
   render(alarms: Alarm){
     return {
       id : alarms.id,
-      hours : convertMinutesToHours(alarms.hour),
+      hours : alarms.hour,
       week_days : weekView.renderMany(alarms.week_days)
     }
   },
