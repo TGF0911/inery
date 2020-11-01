@@ -73,7 +73,7 @@ export default function AlarmUpdate() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"#DCDCDC",
+    backgroundColor:"#f0f0f5",
     
   },
   header: {

@@ -39,8 +39,6 @@ export default function HomePage() {
     return `${hours}:${minutes}`
    }
 
-
-
   useEffect(() => {
     api.get('/recipe', {headers : {authorization : 3}}).then(({ data }) => setRecipes(data));
   }, []);
@@ -52,8 +50,8 @@ export default function HomePage() {
         <Image source={logoImg} />
         <Text style={styles.headerText}>Meus Alarmes</Text>
       </View>
-
-      {/* <TouchableOpacity style={styles.nextButton} onPress={() => navigateToMedicinePage()}>
+{/* 
+      <TouchableOpacity style={styles.nextButton} onPress={() => navigateToMedicinePage()}>
             <Text style={styles.nextButtonText}>Novo Alarme</Text>
       </TouchableOpacity>
 

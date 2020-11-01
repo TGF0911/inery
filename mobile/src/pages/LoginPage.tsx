@@ -1,11 +1,31 @@
-import React from 'react';
-import { TextInput, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { TextInput, View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import api from '../service/api';
 
+
+interface Patient{
+  id: number;
+  email: string;
+  password: string;
+}
 
 export default function LoginPage() {
 
+  const [patient, setPatient] = useState<Patient>()
+
   const navigation = useNavigation()
+
+  async function handleLogin() {
+    const patient = await api.get('/session')
+
+    if(patient.status === 401) {
+      alert('Email ou senha estão errados! Verifique os dados novamente.')
+    }
+    
+    navigation.navigate('HomePage')
+    
+  }
 
   return (
     <View style={styles.container}>
@@ -16,7 +36,7 @@ export default function LoginPage() {
         <TextInput
           style={styles.input}
         />
-        <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('HomePage')}>
+        <TouchableOpacity style={styles.nextButton} onPress={handleLogin}>
           <Text style={styles.nextButtonText}>Entrar</Text>
         </TouchableOpacity>
 
