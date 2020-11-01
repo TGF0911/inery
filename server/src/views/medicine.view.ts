@@ -9,7 +9,7 @@ export default {
       manufacturer : medicine.manufacturer,
       description: medicine.description,
       compund : medicine.compund,
-      photo : `http://localhost:3333/uploads/${medicine.photo}`
+      photo : `http://192.168.0.10:3333/uploads/${medicine.photo}`
     }
   },
   renderMany (medicines : Medicine[]) {

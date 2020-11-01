@@ -12,7 +12,6 @@ import convertMinutesToHours from '../utils/convertToHours';
 
 interface Recipe {
   id: number;
-  name: string;
   medicine_id: number
   description: string;
   alarms: Array<{
@@ -69,23 +68,24 @@ export default function HomePage() {
             style={styles.profilePic}
             resizeMode='contain' />
           <Text>Perfil</Text>
-          <Text style={styles.profilePic}>FOTO</Text>
           <Feather name="edit" size={25} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerText}>Meus Alarmes</Text>
       </View>
 
-      <ScrollView style={styles.menu}>
+      <TouchableOpacity style={styles.detailsButton} >
+        <Text>Criar novos alarmes</Text>
+        <Feather name="plus" size={25} />
+      </TouchableOpacity>
 
-       
+      <ScrollView style={styles.menu}>
 
         <View style={styles.recipesList} >
           {recipes.map((recipe: Recipe) => (
 
             <View style={styles.recipes} key={recipe.id}>
-              <Text style={styles.recipesValue}>{recipe.id}</Text>
-              <Text style={styles.recipesProperty}>Nome:</Text>
-              <Text style={styles.recipesValue}>{recipe.name}</Text>
+              <Text style={styles.recipesProperty}>Descrição:</Text>
+              <Text style={styles.recipesValue}>{recipe.description}</Text>
 
               <Text style={styles.recipesProperty}>Horarios:</Text>
               {recipe.alarms.map((alarm) => {
@@ -196,7 +196,8 @@ const styles = StyleSheet.create({
   detailsButton: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop : 10,
   },
 
   detailsButtonText: {

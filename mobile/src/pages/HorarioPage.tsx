@@ -27,8 +27,11 @@ export default function HorarioPage() {
           style={styles.horaTextoInput}
           onChangeText={text => onChangeText(text)}
           value={value}/>
+
+
+
         
-        <TouchableOpacity style={styles.nextButton} onPress={() => alert('Ai volta pra home')}>
+        <TouchableOpacity style={styles.nextButton} onPress={() => navigateBack}>
           <Text style={styles.nextButtonText}>Cadastrar novo Alarme</Text>
         </TouchableOpacity>
       </View>

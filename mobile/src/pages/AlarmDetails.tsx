@@ -46,7 +46,7 @@ export default function AlarmDetails() {
     api.get(`/recipe/${params.id}`).then(({ data }) => setRecipe(data));
     api.get(`/medicine/${recipe?.medicine_id}`).then(({ data }) => setMedicine(data))
   }, [params.id, recipe?.medicine_id])
-  
+
   if (!recipe) {
     return (
       <View style={styles.container}>
@@ -121,47 +121,21 @@ export default function AlarmDetails() {
               Descrição:
             </Text>
             <Text style={styles.remedioText}>
-              {medicine?.description} 
+              {medicine?.description}
             </Text>
-          </View>
-        </View>
-
-        <Text style={styles.menuText}>
-          {recipe.description}
-        </Text>
-
-        <Text>Id do remédio : {recipe.medicine_id}</Text>
-
-        <View style={styles.alarme}>
-          <View >
-            <Text style={styles.alarmeTextGrande}>
-              Horário: 18:00
-            </Text>
-            <Text style={styles.alarmeTextPqno}>
-              Remédio anti-alérgico
-            </Text>
-          </View>
-          <View style={styles.alarmeBotao}>
-            <TouchableOpacity onPress={() => alert('delete')}>
-              <Feather name="trash-2" size={28} color="red" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigateToAlarmUpdate()}>
-              <Feather name="edit" size={28} color="#37C77F" />
-            </TouchableOpacity>
           </View>
         </View>
 
         {recipe.alarms.map((alarm) => {
           return (
-
-
             <View style={styles.alarme} key={alarm.id} >
               <View >
-
                 <Text style={styles.alarmeTextGrande}>
                   Horário: {changeHour(alarm.hour)}
                 </Text>
-
+                <Text style={styles.alarmeTextPqno}>
+                  {recipe.description}
+            </Text>
               </View>
               <View style={styles.alarmeBotao}>
                 <TouchableOpacity onPress={() => handleDeleteAlarm(alarm.id)}>

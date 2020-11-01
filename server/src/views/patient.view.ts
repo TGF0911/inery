@@ -7,7 +7,7 @@ export default {
       name: patient.name,
       email : patient.email,
       cpf : patient.cpf,
-      photo : `http://localhost:3333/uploads/${patient.photo}`,
+      photo : `http:////192.168.0.10:3333/uploads/${patient.photo}`,
     }
   },
 
