@@ -63,11 +63,12 @@ export default function HomePage() {
           onPress={() => navigateToProfile(params.patient.id)}
           style={styles.profile}>
 
-          <Image
-            source={{ uri: params.patient.photo }}
-            style={styles.profilePic}
-            resizeMode='contain' />
+
           <Text>Perfil</Text>
+
+            <Text style={styles.profileText}>Meus</Text>
+          <Text style={styles.profileText}>Dados</Text>
+
           <Feather name="edit" size={25} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerText}>Meus Alarmes</Text>
@@ -113,21 +114,18 @@ export default function HomePage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F0F5",
+    backgroundColor: '#d4dadc',
   },
   profile: {
-    width: 110,
-    height: 110,
+    width: 80,
+    height: 80,
     alignItems: 'center',
+    backgroundColor:'#06bcee',
+    borderRadius:5,
+    justifyContent:'center',
+    borderWidth:1,
+    borderColor:'#07aae0'
   },
-  profilePic: {
-    width: 90,
-    height: 90,
-    alignItems: 'center',
-    justifyContent: 'center',
-    resizeMode: 'contain',
-  },
-
   profileText: {
     color: 'white',
     fontSize: 17
