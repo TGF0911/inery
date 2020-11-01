@@ -37,7 +37,7 @@ routes.get('/alarm/:id', AlarmController.show)
 routes.put('/alarm/:id', AlarmController.update)
 routes.delete('/alarm/:id', AlarmController.delete)
 
-routes.post('/session', SessionController.store)
+routes.post('/session/email', SessionController.store)
 
 
 routes.post('/iot/', IoTController.alarm)
