@@ -27,12 +27,21 @@ export default function Profile() {
   useEffect(() => {
     api.get(`/patient/${params.id}`).then(({ data }) => setPatient(data))
   }, [params.id])
+  if(!patient){
+    return (
+      <Text>Loading...</Text>
+    )
+  }
 
   // navigation.navigate('Profile', {id})
 
 
   function navigateBack() {
     navigation.goBack()
+  }
+
+  function handleNavigateUpdate(id:number){
+    navigation.navigate('ProfileUpdate', {id})
   }
 
 
@@ -51,14 +60,14 @@ export default function Profile() {
           style={styles.img}
         />
         <View style={styles.perfil}>
-          <Text style={styles.perfilTextNome}>{patient?.name}</Text>
+          <Text style={styles.perfilTextNome}>{patient.name}</Text>
           <Text style={styles.perfilTextDados}>CPF:</Text>
-          <Text style={styles.perfilTextDados}>{patient?.cpf}</Text>
+          <Text style={styles.perfilTextDados}>{patient.cpf}</Text>
           <Text style={styles.perfilTextDados}>Email:</Text>
-          <Text style={styles.perfilTextDados}>{patient?.email}</Text>
+          <Text style={styles.perfilTextDados}>{patient.email}</Text>
           <Text style={styles.perfilTextDados}>Senha:</Text>
           <Text style={styles.perfilTextDados}>******</Text>
-          <TouchableOpacity style={styles.perfilButton} onPress={() => { }}>
+          <TouchableOpacity style={styles.perfilButton} onPress={() => handleNavigateUpdate(patient.id)}>
             <Feather name="edit" size={25} color="#fff" />
             <Text style={styles.perfilButtonText}>Alterar</Text>
           </TouchableOpacity>

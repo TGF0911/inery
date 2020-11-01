@@ -18,6 +18,12 @@ interface Recipe {
   }>
 }
 
+interface Medicine {
+  id: number;
+  description: string;
+  name : string;
+}
+
 interface RouteParams {
   id: number;
 }
@@ -30,6 +36,7 @@ export default function AlarmDetails() {
 
 
   const [recipe, setRecipe] = useState<Recipe>()
+  const [medicine, setMedicine] = useState<Medicine>()
 
 
   const { navigate, goBack } = useNavigation();
@@ -37,6 +44,10 @@ export default function AlarmDetails() {
   useEffect(() => {
     api.get(`/recipe/${params.id}`).then(({ data }) => setRecipe(data));
   }, [params.id])
+
+  useEffect(() => {
+    api.get(`/medicine/${recipe?.medicine_id}`).then(({ data }) => setMedicine(data))
+  }, [recipe?.medicine_id])
   
   if (!recipe) {
     return (

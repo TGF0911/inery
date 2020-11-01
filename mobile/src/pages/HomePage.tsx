@@ -18,7 +18,7 @@ interface Recipe {
   alarms: Array<{
     id: number;
     hour: number;
-    week_days : Array<{
+    week_days: Array<{
       id: number;
       week_day: number;
     }>
@@ -26,8 +26,9 @@ interface Recipe {
 }
 
 interface RouteParams {
-  patient : {
-    id : number
+  patient: {
+    id: number;
+    photo: string;
   }
 }
 
@@ -36,36 +37,36 @@ export default function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
   const routes = useRoute()
   const params = routes.params as RouteParams
-   const navigation = useNavigation();
+  const navigation = useNavigation();
 
-   function navigateToAlarmDetails(id : number) {
-       navigation.navigate('AlarmDetails', {id});
-   }
+  function navigateToAlarmDetails(id: number) {
+    navigation.navigate('AlarmDetails', { id });
+  }
 
-   function navigateToProfile(id : number){
-     navigation.navigate('Profile', {id})
-   }
+  function navigateToProfile(id: number) {
+    navigation.navigate('Profile', { id })
+  }
 
-   function changeHour(hour : number){
+  function changeHour(hour: number) {
     const [hours, minutes] = convertMinutesToHours(hour)
     return `${hours}:${minutes}`
-   }
+  }
 
   useEffect(() => {
-    api.get('/recipe', {headers : {authorization : params.patient.id }}).then(({ data }) => setRecipes(data));
-  }, []);
+    api.get('/recipe', { headers: { authorization: params.patient.id } }).then(({ data }) => setRecipes(data));
+  }, [params.patient.id]);
 
   return (
-    
+
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={() => navigateToProfile(params.patient.id)}
           style={styles.profile}>
-          <Image 
-            source={logoImg} 
+          <Image
+            source={{ uri: params.patient.photo }}
             style={styles.profilePic}
-            resizeMode='contain'/>
+            resizeMode='contain' />
           <Text>Perfil</Text>
         </TouchableOpacity>
         <Text style={styles.headerText}>Meus Alarmes</Text>
@@ -73,7 +74,9 @@ export default function HomePage() {
 
       <ScrollView style={styles.menu}>
 
-      <View style={styles.recipesList} >
+        <Text>{params.patient.photo}</Text>
+
+        <View style={styles.recipesList} >
           {recipes.map((recipe: Recipe) => (
 
             <View style={styles.recipes} key={recipe.id}>
@@ -85,13 +88,13 @@ export default function HomePage() {
               {recipe.alarms.map((alarm) => {
                 return (
                   <View key={alarm.id}>
-                    <Text>Horários: {changeHour(alarm.hour)}</Text>                
+                    <Text>Horários: {changeHour(alarm.hour)}</Text>
                   </View>
                 )
               })}
 
               <TouchableOpacity style={styles.detailsButton}
-               onPress={() => navigateToAlarmDetails(recipe.id)}
+                onPress={() => navigateToAlarmDetails(recipe.id)}
               >
                 <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
                 <Feather name="arrow-right" size={16} color="#E02041" />
@@ -99,50 +102,50 @@ export default function HomePage() {
             </View>
           ))}
         </View>
-        </ScrollView>
-      </View>
+      </ScrollView>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"#DCDCDC",
+    backgroundColor: "#F0F0F5",
   },
-  profile:{
-    width:110,
-    height:110,
-    alignItems:'center',
+  profile: {
+    width: 110,
+    height: 110,
+    alignItems: 'center',
   },
-  profilePic:{
-    width:90,
-    height:90,
-    alignItems:'center',
-    justifyContent:'center',
-    resizeMode:'contain',
+  profilePic: {
+    width: 90,
+    height: 90,
+    alignItems: 'center',
+    justifyContent: 'center',
+    resizeMode: 'contain',
   },
   header: {
-    padding:5,
-    paddingHorizontal:20,
+    padding: 5,
+    paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:'space-around',
-    backgroundColor:'#fff',
-    marginBottom:10,
+    justifyContent: 'space-around',
+    backgroundColor: '#fff',
+    marginBottom: 10,
   },
 
   headerText: {
     fontSize: 30,
     color: '#13131a',
     fontWeight: 'bold',
-    marginRight:20
+    marginRight: 20
   },
 
   headerTextBold: {
     fontWeight: 'bold',
   },
-  menu:{
-    marginHorizontal:15,
+  menu: {
+    marginHorizontal: 15,
   },
   title: {
     fontSize: 30,
@@ -201,7 +204,7 @@ const styles = StyleSheet.create({
     height: 56,
     marginTop: 20,
     marginBottom: 30,
-    marginHorizontal:15,
+    marginHorizontal: 15,
   },
   nextButtonText: {
     fontSize: 22,
