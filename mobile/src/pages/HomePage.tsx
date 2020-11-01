@@ -108,7 +108,7 @@ export default function HomePage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F0F5",
+    backgroundColor: '#d4dadc',
   },
   profile: {
     width: 80,
@@ -116,7 +116,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor:'#06bcee',
     borderRadius:5,
-    justifyContent:'center'
+    justifyContent:'center',
+    borderWidth:1,
+    borderColor:'#07aae0'
   },
   profileText: {
     color: 'white',
