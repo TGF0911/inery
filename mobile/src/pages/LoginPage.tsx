@@ -25,9 +25,9 @@ export default function LoginPage() {
     data.append('email', email)
     data.append('password', password)
 
-    console.log(data)
-
+    
     const pacient = await api.post('/session', data)
+    console.log(data)
 
     if(pacient.status === 401) {
       return alert('Verifique os dados novamente.')
