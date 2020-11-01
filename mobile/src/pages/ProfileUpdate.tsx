@@ -26,7 +26,6 @@ export default function ProfileUpdate() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [value, onChangeText] = React.useState('');
 
   useEffect(() => {
     api.get(`/patient/${params.id}`).then(({ data }) => setPatient(data))

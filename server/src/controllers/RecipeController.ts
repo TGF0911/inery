@@ -56,10 +56,10 @@ export default {
 
     const recipes = await recipeRepository.find({
       where: { patient_id: Number(patient_id) },
-      relations: ['alarms']
+      relations: ['alarms'], 
     })
 
-    return res.json(recipeView.renderMany(recipes))
+    return res.json(recipes)
   },
 
   async show(req: Request, res: Response) {
@@ -68,12 +68,17 @@ export default {
 
     const recipe = await recipeRepository.findOneOrFail(
       id,
-      { relations: ['alarms'] }
+      { 
+        relations: ['alarms'],
+        loadRelationIds : { 
+          relations : ['medicine_id']
+        }
+      },
     )
 
     if (!recipe) return res.status(401)
 
-    return res.json(recipeView.render(recipe))
+    return res.json(recipe)
   },
 
   async update(req: Request, res: Response) {
