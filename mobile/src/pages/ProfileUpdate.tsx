@@ -32,7 +32,7 @@ export default function ProfileUpdate() {
     api.get(`/patient/${params.id}`).then(({ data }) => setPatient(data))
   }, [params.id])
 
-  // navigation.navigate('Profile', {id})
+  
 
 
   async function UpdateInfo() {

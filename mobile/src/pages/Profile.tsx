@@ -31,11 +31,11 @@ export default function Profile() {
   useEffect(() => {
     api.get(`/patient/${params.id}`).then(({ data }) => setPatient(data))
   }, [params.id])
-  // if(!patient){
-  //   return (
-  //     <Text>Loading...</Text>
-  //   )
-  // }
+  if(!patient){
+    return (
+      <Text>Loading...</Text>
+    )
+  }
 
 
   function navigateBack() {
@@ -66,7 +66,7 @@ export default function Profile() {
           <Text style={styles.perfilTextDados}>Senha:</Text>
           <Text style={styles.perfilTextDados}>******</Text>
 
-          <TouchableOpacity style={styles.perfilButton} onPress={() => navigateToProfileUpdate(6)}>
+          <TouchableOpacity style={styles.perfilButton} onPress={() => navigateToProfileUpdate(patient.id)}>
             <Feather name="edit" size={25} color="#fff" />
             <Text style={styles.perfilButtonText}>Alterar</Text>
           </TouchableOpacity>
