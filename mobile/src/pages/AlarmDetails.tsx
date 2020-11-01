@@ -21,7 +21,8 @@ interface Recipe {
 interface Medicine {
   id: number;
   description: string;
-  name : string;
+  name: string;
+  photo: string;
 }
 
 interface RouteParams {
@@ -36,19 +37,15 @@ export default function AlarmDetails() {
 
 
   const [recipe, setRecipe] = useState<Recipe>()
-  const [medicine, setMedicine] = useState<Medicine>()
+  // const [medicine, setMedicine] = useState<Medicine>()
 
 
   const { navigate, goBack } = useNavigation();
-  
+
   useEffect(() => {
     api.get(`/recipe/${params.id}`).then(({ data }) => setRecipe(data));
   }, [params.id])
 
-  useEffect(() => {
-    api.get(`/medicine/${recipe?.medicine_id}`).then(({ data }) => setMedicine(data))
-  }, [recipe?.medicine_id])
-  
   if (!recipe) {
     return (
       <View style={styles.container}>
@@ -56,17 +53,30 @@ export default function AlarmDetails() {
       </View>
     );
   }
-  
-  
-    function navigateBack() {
-      goBack()
-    }
-  
-    function changeHour(hours: number) {
-      const [hour, minutes] = convertMinutesToHours(hours)
-  
-      return `${hour}:${minutes}`
-    }
+
+  // useEffect(() => {
+  //   api.get(`/medicine/${recipe.medicine_id}`).then(({ data }) => setMedicine(data))
+  // }, [recipe.medicine_id])
+
+
+  // if (!medicine) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Text>Loading...</Text>
+  //     </View>
+  //   );
+  // }
+
+
+  function navigateBack() {
+    goBack()
+  }
+
+  function changeHour(hours: number) {
+    const [hour, minutes] = convertMinutesToHours(hours)
+
+    return `${hour}:${minutes}`
+  }
 
   async function handleDeleteAlarm(id: number) {
     await api.delete(`/alarm/${id}`);
@@ -77,7 +87,7 @@ export default function AlarmDetails() {
 
   function navigateToAlarmUpdate() {
     navigate('AlarmUpdate');
-}
+  }
 
   async function handleDeleteRecipe(id: number) {
     await api.delete(`/recipe/${id}`)
@@ -109,13 +119,13 @@ export default function AlarmDetails() {
               Nome:
             </Text>
             <Text style={styles.remedioText}>
-              {/* {medicine.name} */}
+              {/* {medicine?.name} */}
             </Text>
             <Text style={styles.remedioText}>
               Descrição:
             </Text>
             <Text style={styles.remedioText}>
-              {/* {medicine.description} */}
+              {/* {medicine?.description}  */}
             </Text>
           </View>
         </View>
@@ -124,21 +134,23 @@ export default function AlarmDetails() {
           {recipe.description}
         </Text>
 
+        <Text>Id do remédio : {recipe.medicine_id}</Text>
+
         <View style={styles.alarme}>
-         <View >
+          <View >
             <Text style={styles.alarmeTextGrande}>
-            Horário: 18:00
+              Horário: 18:00
             </Text>
             <Text style={styles.alarmeTextPqno}>
-             Remédio anti-alérgico
+              Remédio anti-alérgico
             </Text>
           </View>
           <View style={styles.alarmeBotao}>
-            <TouchableOpacity onPress={()=>alert('delete')}>
-              <Feather name="trash-2" size={28} color="red"/>
+            <TouchableOpacity onPress={() => alert('delete')}>
+              <Feather name="trash-2" size={28} color="red" />
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>navigateToAlarmUpdate()}>
-              <Feather name="edit" size={28} color="#37C77F"/>
+            <TouchableOpacity onPress={() => navigateToAlarmUpdate()}>
+              <Feather name="edit" size={28} color="#37C77F" />
             </TouchableOpacity>
           </View>
         </View>

@@ -63,18 +63,21 @@ export default function HomePage() {
         <TouchableOpacity
           onPress={() => navigateToProfile(params.patient.id)}
           style={styles.profile}>
+
           <Image
             source={{ uri: params.patient.photo }}
             style={styles.profilePic}
             resizeMode='contain' />
           <Text>Perfil</Text>
+          <Text style={styles.profilePic}>FOTO</Text>
+          <Feather name="edit" size={25} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerText}>Meus Alarmes</Text>
       </View>
 
       <ScrollView style={styles.menu}>
 
-        <Text>{params.patient.photo}</Text>
+       
 
         <View style={styles.recipesList} >
           {recipes.map((recipe: Recipe) => (
@@ -123,6 +126,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     resizeMode: 'contain',
+  },
+
+  profileText: {
+    color: 'white',
+    fontSize: 17
   },
   header: {
     padding: 5,
