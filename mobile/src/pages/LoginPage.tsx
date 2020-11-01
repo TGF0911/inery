@@ -16,48 +16,46 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const navigation = useNavigation()
+  const { navigate } = useNavigation()
 
   async function handleLogin() {
-    const data = new FormData();
 
-    
-    data.append('email', email)
-    data.append('password', password)
+    try {
+      const { data: patient } = await api.post(`/session/${email}`);
 
-    
-    const pacient = await api.post('/session', data)
-    console.log(data)
-
-    if(pacient.status === 401) {
-      return alert('Verifique os dados novamente.')
+      patient && patient.password === password
+        ? navigate('HomePage', { patient })
+        : alert('Senha incorreta!');
+      } catch (error) {
+        alert(error)
+        alert('Usuário não encontrado!');
+        alert(email)
     }
-
-   navigation.navigate('HomePage')
-
   }
 
-  return (
-    <View style={styles.container}>
-      <View>
-        <Text style={styles.label}>Email</Text>
-        <TextInput style={styles.input}
-          value={email}
-          onChangeText={setEmail}
-        />
-        <Text style={styles.label}>Senha</Text>
-        <TextInput
-          style={styles.input}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-        <TouchableOpacity style={styles.nextButton} onPress={handleLogin}>
-          <Text style={styles.nextButtonText}>Entrar</Text>
-        </TouchableOpacity>
-      </View>
+
+
+return (
+  <View style={styles.container}>
+    <View>
+      <Text style={styles.label}>Email</Text>
+      <TextInput style={styles.input}
+        value={email}
+        onChangeText={(value) => setEmail(value)}
+      />
+      <Text style={styles.label}>Senha</Text>
+      <TextInput
+        style={styles.input}
+        value={password}
+        onChangeText={(value) => setPassword(value)}
+        secureTextEntry
+      />
+      <TouchableOpacity style={styles.nextButton} onPress={handleLogin}>
+        <Text style={styles.nextButtonText}>Entrar</Text>
+      </TouchableOpacity>
     </View>
-  )
+  </View>
+)
 }
 
 const styles = StyleSheet.create({
