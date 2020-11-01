@@ -37,15 +37,16 @@ export default function AlarmDetails() {
 
 
   const [recipe, setRecipe] = useState<Recipe>()
-  // const [medicine, setMedicine] = useState<Medicine>()
+  const [medicine, setMedicine] = useState<Medicine>()
 
 
   const { navigate, goBack } = useNavigation();
 
   useEffect(() => {
     api.get(`/recipe/${params.id}`).then(({ data }) => setRecipe(data));
-  }, [params.id])
-
+    api.get(`/medicine/${recipe?.medicine_id}`).then(({ data }) => setMedicine(data))
+  }, [params.id, recipe?.medicine_id])
+  
   if (!recipe) {
     return (
       <View style={styles.container}>
@@ -54,18 +55,13 @@ export default function AlarmDetails() {
     );
   }
 
-  // useEffect(() => {
-  //   api.get(`/medicine/${recipe.medicine_id}`).then(({ data }) => setMedicine(data))
-  // }, [recipe.medicine_id])
-
-
-  // if (!medicine) {
-  //   return (
-  //     <View style={styles.container}>
-  //       <Text>Loading...</Text>
-  //     </View>
-  //   );
-  // }
+  if (!medicine) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
 
   function navigateBack() {
@@ -119,13 +115,13 @@ export default function AlarmDetails() {
               Nome:
             </Text>
             <Text style={styles.remedioText}>
-              {/* {medicine?.name} */}
+              {medicine?.name}
             </Text>
             <Text style={styles.remedioText}>
               Descrição:
             </Text>
             <Text style={styles.remedioText}>
-              {/* {medicine?.description}  */}
+              {medicine?.description} 
             </Text>
           </View>
         </View>
