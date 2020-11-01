@@ -34,6 +34,10 @@ export default function HomePage() {
        navigation.navigate('AlarmDetails', {id});
    }
 
+   function navigateToProfile(){
+     navigation.navigate('Profile')
+   }
+
    function changeHour(hour : number){
     const [hours, minutes] = convertMinutesToHours(hour)
     return `${hours}:${minutes}`
@@ -47,17 +51,17 @@ export default function HomePage() {
     
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={logoImg} />
+        <TouchableOpacity 
+          onPress={() => navigateToProfile()}
+          style={styles.profile}>
+          <Image 
+            source={logoImg} 
+            style={styles.profilePic}
+            resizeMode='contain'/>
+          <Text>Perfil</Text>
+        </TouchableOpacity>
         <Text style={styles.headerText}>Meus Alarmes</Text>
       </View>
-{/* 
-      <TouchableOpacity style={styles.nextButton} onPress={() => navigateToMedicinePage()}>
-            <Text style={styles.nextButtonText}>Novo Alarme</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.nextButton} onPress={() => navigateToAlarmDetails()}>
-            <Text style={styles.nextButtonText}>ALARM DETAILS</Text>
-      </TouchableOpacity> */}
 
       <ScrollView style={styles.menu}>
 
@@ -97,7 +101,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor:"#DCDCDC",
   },
-
+  profile:{
+    width:110,
+    height:110,
+    alignItems:'center',
+  },
+  profilePic:{
+    width:90,
+    height:90,
+    alignItems:'center',
+    justifyContent:'center',
+    resizeMode:'contain',
+  },
   header: {
     padding:5,
     paddingHorizontal:20,
@@ -105,8 +120,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent:'space-around',
     backgroundColor:'#fff',
-    paddingTop:15,
-    marginBottom:10
+    marginBottom:10,
   },
 
   headerText: {
