@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet,TextInput, View, Text,  TouchableOpacity, } from 'react-native';
+import { StyleSheet,TextInput, View, Text, ScrollView, TouchableOpacity, } from 'react-native';
 import {Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { CheckBox } from 'react-native-elements'
 
 export default function HorarioPage() {
 
@@ -11,6 +12,14 @@ export default function HorarioPage() {
     navigation.goBack()
   }
   const [value, onChangeText] = React.useState('');
+
+  const [domingo, onChangeDomingo]=React.useState(false);
+  const [segunda, onChangeSegunda]=React.useState(false);
+  const [terca, onChangeTerca]=React.useState(false);
+  const [quarta, onChangeQuarta]=React.useState(false);
+  const [quinta, onChangeQuinta]=React.useState(false);
+  const [sexta, onChangeSexta]=React.useState(false);
+  const [sabado, onChangeSabado]=React.useState(false);
  
   return (
     <View style={styles.container}>
@@ -18,34 +27,84 @@ export default function HorarioPage() {
         <Text style={styles.headerText}>Escolha o horário</Text>
         <TouchableOpacity onPress={navigateBack}>
           <Feather name="arrow-left" size={28} color="#FF9900"/>
-        </TouchableOpacity>
-     
+        </TouchableOpacity>     
       </View>
-      <View style={styles.menu}>
+      <ScrollView style={styles.menu}>
         <Text style={styles.horaTexto}>Hora(HH:MM):</Text>
         <TextInput
           style={styles.horaTextoInput}
           onChangeText={text => onChangeText(text)}
           value={value}/>
-
-
-
-        
+        <Text style={styles.horaTexto}>Dia da Semana:</Text>  
+        <CheckBox
+          checked={domingo}
+          center
+          title='Domingo'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          onPress={() => onChangeDomingo(!domingo)}
+        />
+        <CheckBox
+          checked={segunda}
+          center
+          title='Segunda-Feira'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          onPress={() => onChangeSegunda(!segunda)}
+        /> 
+        <CheckBox
+          checked={terca}
+          center
+          title='Terça-Feira'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          onPress={() => onChangeTerca(!terca)}
+        /> 
+        <CheckBox
+          checked={quarta}
+          center
+          title='Quarta-Feira'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          onPress={() => onChangeQuarta(!quarta)}
+        /> 
+        <CheckBox
+          checked={quinta}
+          center
+          title='Quinta-Feira'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          onPress={() => onChangeQuinta(!quinta)}
+        /> 
+        <CheckBox
+          checked={sexta}
+          center
+          title='Sexta-Feira'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          onPress={() => onChangeSexta(!sexta)}
+        /> 
+        <CheckBox
+          checked={sabado}
+          center
+          title='Sábado'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          onPress={() => onChangeSabado(!sabado)}
+        />    
         <TouchableOpacity style={styles.nextButton} onPress={() => navigateBack}>
+        <Feather name="save" size={25} color="#fff" />
           <Text style={styles.nextButtonText}>Cadastrar novo Alarme</Text>
         </TouchableOpacity>
-      </View>
-        
-    </View>
-      
+      </ScrollView>        
+    </View>    
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"#DCDCDC",
-    
+    backgroundColor:"#DCDCDC",    
   },
   header: {
     padding:5,
@@ -88,12 +147,14 @@ const styles = StyleSheet.create({
     backgroundColor:'#fff',
   },
   nextButton: {
-    backgroundColor: "#DD3355",
+    flexDirection:'row',
+    backgroundColor: "#1f6af7",
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
     height: 56,
     marginTop: 28,
+    marginBottom:50,
   },
   nextButtonText: {
     fontSize: 22,

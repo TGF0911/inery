@@ -46,6 +46,10 @@ export default function HomePage() {
     navigation.navigate('Profile', { id })
   }
 
+  function navigateToMedicinePage(id: number) {
+    navigation.navigate('MedicinePage', { id })
+  }
+
   function changeHour(hour: number) {
     const [hours, minutes] = convertMinutesToHours(hour)
     return `${hours}:${minutes}`
@@ -63,9 +67,6 @@ export default function HomePage() {
           onPress={() => navigateToProfile(params.patient.id)}
           style={styles.profile}>
 
-
-          <Text>Perfil</Text>
-
             <Text style={styles.profileText}>Meus</Text>
           <Text style={styles.profileText}>Dados</Text>
 
@@ -74,10 +75,11 @@ export default function HomePage() {
         <Text style={styles.headerText}>Meus Alarmes</Text>
       </View>
 
-      <TouchableOpacity style={styles.detailsButton} >
-        <Text>Criar novos alarmes</Text>
-        <Feather name="plus" size={25} />
+      <TouchableOpacity style={styles.nextButton} onPress={() => navigateToMedicinePage(params.patient.id)}>
+        <Feather name="plus-circle" size={25} color='#fff' />
+        <Text style={styles.nextButtonText}>Novo Alarme</Text>
       </TouchableOpacity>
+    
 
       <ScrollView style={styles.menu}>
 
@@ -204,13 +206,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   nextButton: {
-    backgroundColor: "#DD3355",
+    flexDirection:'row',
+    backgroundColor: "#1f6af7",
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
     height: 56,
-    marginTop: 20,
-    marginBottom: 30,
+    marginTop: 5,
+    marginBottom: 10,
     marginHorizontal: 15,
   },
   nextButtonText: {

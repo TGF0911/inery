@@ -84,7 +84,7 @@ export default function ProfileUpdate() {
             placeholder="Digite a nova Senha"
           />
           <TouchableOpacity style={styles.perfilButton} onPress={() => UpdateInfo}>
-            <Feather name="edit" size={25} color="#fff" />
+            <Feather name="save" size={25} color="#fff" />
             <Text style={styles.perfilButtonText}>Salvar</Text>
           </TouchableOpacity>
         </View>

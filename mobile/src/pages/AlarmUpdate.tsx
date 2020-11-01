@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet,TextInput, View, Text,  TouchableOpacity, } from 'react-native';
+import { StyleSheet,TextInput, View, ScrollView, Text,  TouchableOpacity, } from 'react-native';
 import {Feather } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import api from '../service/api';
+import { CheckBox } from 'react-native-elements'
 
 interface Alarm {
   id: number;
@@ -15,6 +16,16 @@ interface RouteParams {
 
 export default function AlarmUpdate() {
 
+  
+  const [domingo, onChangeDomingo]=React.useState(false);
+  const [segunda, onChangeSegunda]=React.useState(false);
+  const [terca, onChangeTerca]=React.useState(false);
+  const [quarta, onChangeQuarta]=React.useState(false);
+  const [quinta, onChangeQuinta]=React.useState(false);
+  const [sexta, onChangeSexta]=React.useState(false);
+  const [sabado, onChangeSabado]=React.useState(false);
+  
+  
   const [alarm, setAlarm] = useState<Alarm>()
   const route = useRoute()
   const params = route.params as RouteParams
@@ -56,17 +67,75 @@ export default function AlarmUpdate() {
         </TouchableOpacity>
      
       </View>
-      <View style={styles.menu}>
+      <ScrollView style={styles.menu}>
         <Text style={styles.horaTexto}>Hora(HH:MM):</Text>
         <TextInput
           style={styles.horaTextoInput}
           onChangeText={text => onChangeText(text)}
           value={value}/>
+        <Text style={styles.horaTexto}>Dia da Semana:</Text>  
+        <CheckBox
+          checked={domingo}
+          center
+          title='Domingo'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          onPress={() => onChangeDomingo(!domingo)}
+        />
+        <CheckBox
+          checked={segunda}
+          center
+          title='Segunda-Feira'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          onPress={() => onChangeSegunda(!segunda)}
+        /> 
+        <CheckBox
+          checked={terca}
+          center
+          title='Terça-Feira'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          onPress={() => onChangeTerca(!terca)}
+        /> 
+        <CheckBox
+          checked={quarta}
+          center
+          title='Quarta-Feira'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          onPress={() => onChangeQuarta(!quarta)}
+        /> 
+        <CheckBox
+          checked={quinta}
+          center
+          title='Quinta-Feira'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          onPress={() => onChangeQuinta(!quinta)}
+        /> 
+        <CheckBox
+          checked={sexta}
+          center
+          title='Sexta-Feira'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          onPress={() => onChangeSexta(!sexta)}
+        /> 
+        <CheckBox
+          checked={sabado}
+          center
+          title='Sábado'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          onPress={() => onChangeSabado(!sabado)}
+        /> 
         
         <TouchableOpacity style={styles.nextButton} onPress={handleUpdateAlarm}>
+        <Feather name="save" size={25} color="#fff" />
           <Text style={styles.nextButtonText}>Salvar</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
         
     </View>
       
@@ -76,7 +145,7 @@ export default function AlarmUpdate() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"#f0f0f5",
+    backgroundColor: '#d4dadc',
     
   },
   header: {
@@ -120,7 +189,8 @@ const styles = StyleSheet.create({
     backgroundColor:'#fff',
   },
   nextButton: {
-    backgroundColor: "#DD3355",
+    flexDirection:'row',
+    backgroundColor: "#1f6af7",
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',

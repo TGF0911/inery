@@ -162,7 +162,7 @@ export default function AlarmDetails() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f0f0f5",
+    backgroundColor: '#d4dadc',
 
   },
   header: {

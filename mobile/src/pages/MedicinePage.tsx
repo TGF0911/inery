@@ -43,7 +43,7 @@ export default function MedicinePage() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Image source={logoImg} />
-        <Text style={styles.headerText}>Escolha o medicamento</Text>
+        <Text style={styles.headerText}>Escolha um medicamento</Text>
         <TouchableOpacity onPress={navigateBack}>
           <Feather name="arrow-left" size={28} color="#FF9900" />
         </TouchableOpacity>
@@ -54,6 +54,7 @@ export default function MedicinePage() {
 
         {medicines.map(medicine => {
           return (
+            <TouchableOpacity onPress={() => handleAddMedicine(medicine.id)}> 
             <View style={styles.remedio} key={medicine.id} >
               <Image source={{uri : medicine.photo}} />
               <View >
@@ -70,30 +71,12 @@ export default function MedicinePage() {
                   {medicine.description}
            </Text>
               </View>
-              <TouchableOpacity onPress={() => handleAddMedicine(medicine.id)}> 
-                <Feather name="plus" size={28} color="#008db7"/>
-              </TouchableOpacity>
+                <Feather name="plus-square" size={28} color="#008db7"/>
             </View>
-
+              </TouchableOpacity>
           )
         })}
-
-
-
-
-
-
-
-
-
-
       </ScrollView>
-
-      <TouchableOpacity style={styles.nextButton} onPress={() => navigateToHorarioPage()}>
-        <Text style={styles.nextButtonText}>Escolher Horário</Text>
-        <Feather name="arrow-right-circle" size={28} color="#fff" />
-      </TouchableOpacity>
-
     </View>
   )
 }
