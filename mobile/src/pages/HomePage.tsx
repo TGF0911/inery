@@ -7,7 +7,7 @@ import logoImg from '../assets/logo-medicine.png'
 
 import { Feather } from '@expo/vector-icons';
 import api from '../service/api';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import convertMinutesToHours from '../utils/convertToHours';
 
 interface Recipe {
@@ -25,9 +25,17 @@ interface Recipe {
   }>
 }
 
+interface RouteParams {
+  patient : {
+    id : number
+  }
+}
+
+
 export default function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
-
+  const routes = useRoute()
+  const params = routes.params as RouteParams
    const navigation = useNavigation();
 
    function navigateToAlarmDetails(id : number) {
@@ -44,7 +52,7 @@ export default function HomePage() {
    }
 
   useEffect(() => {
-    api.get('/recipe', {headers : {authorization : 3}}).then(({ data }) => setRecipes(data));
+    api.get('/recipe', {headers : {authorization : params.patient.id }}).then(({ data }) => setRecipes(data));
   }, []);
 
   return (
