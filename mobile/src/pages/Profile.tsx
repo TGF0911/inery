@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
-import logoImg from '../assets/logo-medicine.png'
 import { Feather } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import api from '../service/api';
