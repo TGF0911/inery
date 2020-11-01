@@ -29,13 +29,16 @@ export default function AlarmUpdate() {
   }, [params.id]);
 
   async function handleUpdateAlarm(){
-    await api.put(`/alarms/${params.id}`, { 
+    await api.put(`/alarm/${params.id}`, { 
       ...alarm,
       hour
     })
 
     navigation.navigate('HomePage')
   }
+
+ 
+
 
   const navigation = useNavigation();
 

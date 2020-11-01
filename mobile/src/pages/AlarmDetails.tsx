@@ -74,6 +74,10 @@ export default function AlarmDetails() {
     navigate('HomePage');
   }
 
+  async function handleNavigateToUpdate(id: number) {
+    navigate('AlarmUpdate', { id });
+  }
+
 
   return (
     <View style={styles.container}>
@@ -144,7 +148,7 @@ export default function AlarmDetails() {
                 <TouchableOpacity onPress={() => handleDeleteAlarm(alarm.id)}>
                   <Feather name="trash-2" size={28} color="red" />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigate("UpdateAlarm")}>
+                <TouchableOpacity onPress={() => handleNavigateToUpdate(alarm.id)}>
                   <Feather name="edit" size={28} color="#37C77F" />
                 </TouchableOpacity>
               </View>
