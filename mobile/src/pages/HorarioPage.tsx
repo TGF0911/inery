@@ -1,16 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet,TextInput, View, Text,  TouchableOpacity, } from 'react-native';
 import {Feather } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import api from '../service/api';
+
+interface RouteParams {
+  medicine_id: number;
+  pacient_id : number;
+}
+
 
 export default function HorarioPage() {
 
   const navigation = useNavigation();
+  const route = useRoute()
+
+  const params = route.params as RouteParams
+
+  const [hours, setHours] = useState('')
+  const [week_days, setWeekDays] = useState([])
+  const [description, setDescription] = useState('')
 
   function navigateBack(){
     navigation.goBack()
   }
-  const [value, onChangeText] = React.useState('');
+  async function handleCreate(){
+    const data = new FormData();
+
+    data.append('medicine_id', String(params.medicine_id))
+    data.append('hours', hours)
+    data.forEach((week_days) => {
+      data.append('week_days', week_days)
+    })
+
+    await api.post('/recipe', {headers : {authorization : params.pacient_id}})
+
+    navigation.navigate('HomePage')
+  }
  
   return (
     <View style={styles.container}>
@@ -22,16 +48,26 @@ export default function HorarioPage() {
      
       </View>
       <View style={styles.menu}>
+
+      <Text style={styles.horaTexto}>Descrição:</Text>
+        <TextInput
+          style={styles.horaTextoInput}
+          value={description}
+          onChangeText={(value) => setDescription(value)}
+          />
+
+
         <Text style={styles.horaTexto}>Hora(HH:MM):</Text>
         <TextInput
           style={styles.horaTextoInput}
-          onChangeText={text => onChangeText(text)}
-          value={value}/>
+          value={hours}
+          onChangeText={(value) => setHours(value)}
+          />
 
 
 
         
-        <TouchableOpacity style={styles.nextButton} onPress={() => navigateBack}>
+        <TouchableOpacity style={styles.nextButton} onPress={() => handleCreate}>
           <Text style={styles.nextButtonText}>Cadastrar novo Alarme</Text>
         </TouchableOpacity>
       </View>
@@ -77,6 +113,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginLeft:10,
     color: 'gray',
+    marginTop:8,
     marginBottom:10
   },
   horaTextoInput:{

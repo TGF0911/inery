@@ -46,6 +46,10 @@ export default function HomePage() {
     navigation.navigate('Profile', { id })
   }
 
+  function navigateToMedicine(){
+    navigation.navigate('MedicinePage')
+  }
+
   function changeHour(hour: number) {
     const [hours, minutes] = convertMinutesToHours(hour)
     return `${hours}:${minutes}`
@@ -64,8 +68,6 @@ export default function HomePage() {
           style={styles.profile}>
 
 
-          <Text>Perfil</Text>
-
             <Text style={styles.profileText}>Meus</Text>
           <Text style={styles.profileText}>Dados</Text>
 
@@ -74,7 +76,7 @@ export default function HomePage() {
         <Text style={styles.headerText}>Meus Alarmes</Text>
       </View>
 
-      <TouchableOpacity style={styles.detailsButton} >
+      <TouchableOpacity style={styles.detailsButton} onPress={navigateToMedicine}>
         <Text>Criar novos alarmes</Text>
         <Feather name="plus" size={25} />
       </TouchableOpacity>
@@ -89,13 +91,15 @@ export default function HomePage() {
               <Text style={styles.recipesValue}>{recipe.description}</Text>
 
               <Text style={styles.recipesProperty}>Horarios:</Text>
+            <View style={styles.alarmContainer}>
               {recipe.alarms.map((alarm) => {
                 return (
                   <View key={alarm.id}>
-                    <Text>Horários: {changeHour(alarm.hour)}</Text>
+                    <Text style={styles.alarm}>{changeHour(alarm.hour)}</Text>
                   </View>
                 )
               })}
+              </View>
 
               <TouchableOpacity style={styles.detailsButton}
                 onPress={() => navigateToAlarmDetails(recipe.id)}
@@ -114,7 +118,7 @@ export default function HomePage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#d4dadc',
+    backgroundColor: '#f0f0f5',
   },
   profile: {
     width: 80,
@@ -217,5 +221,19 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: '#fff'
   },
+  alarmContainer: {
+    borderWidth: 1,
+    borderColor : "#FF9900",
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 20,
+    marginLeft : 70,
+    width : 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  alarm : {
+    fontSize: 26,
+  }
 
 })

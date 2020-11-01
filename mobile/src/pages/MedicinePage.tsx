@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
 import logoImg from '../assets/logo-medicine.png'
 import { Feather } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import api from '../service/api';
 
 
@@ -13,9 +13,16 @@ interface Medicine {
   photo: string;
 }
 
+interface RouteParams {
+  id : number
+}
+
 export default function MedicinePage() {
 
   const [medicines, setMedicines] = useState<Medicine[]>([])
+  const routes = useRoute()
+
+  const params = routes.params as RouteParams
 
   const navigation = useNavigation();
 
@@ -23,12 +30,8 @@ export default function MedicinePage() {
     navigation.goBack()
   }
 
-  function navigateToAlarmUpdate() {
-    navigation.navigate('AlarmUpdate');
-  }
-
-  function handleAddMedicine(id: number) {
-    navigation.navigate('HorarioPage', {id})
+  function handleAddMedicine(medicine_id: number) {
+    navigation.navigate('HorarioPage', {medicine_id})
   }
 
   function navigateToHorarioPage() {
@@ -55,7 +58,6 @@ export default function MedicinePage() {
         {medicines.map(medicine => {
           return (
             <View style={styles.remedio} key={medicine.id} >
-              <Image source={{uri : medicine.photo}} />
               <View >
                 <Text style={styles.remedioText}>
                   Nome:
@@ -89,10 +91,10 @@ export default function MedicinePage() {
 
       </ScrollView>
 
-      <TouchableOpacity style={styles.nextButton} onPress={() => navigateToHorarioPage()}>
+      {/* <TouchableOpacity style={styles.nextButton} onPress={() => navigateToHorarioPage()}>
         <Text style={styles.nextButtonText}>Escolher Horário</Text>
         <Feather name="arrow-right-circle" size={28} color="#fff" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
     </View>
   )
