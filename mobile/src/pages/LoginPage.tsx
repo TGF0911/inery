@@ -55,15 +55,6 @@ export default function LoginPage() {
         <TouchableOpacity style={styles.nextButton} onPress={handleLogin}>
           <Text style={styles.nextButtonText}>Entrar</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => alert('ZZZ')}>
-          <Text style={styles.withoutRegister}>Esqueceu a senha?</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert('ZZZ')}>
-          <Text style={styles.withoutRegister}>Ainda não se cadastrou?</Text>
-        </TouchableOpacity>
-
-
       </View>
     </View>
   )
