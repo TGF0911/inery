@@ -7,6 +7,8 @@ export default {
   async store(req : Request, res: Response){
     const {email, password} = req.body
 
+    console.log(email, password)
+
     const patientRepository = getRepository(Patient)
   const patient = await patientRepository.findOneOrFail(
     {where: {email : email}},

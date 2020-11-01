@@ -4,28 +4,36 @@ import { useNavigation } from '@react-navigation/native';
 import api from '../service/api';
 
 
-interface Patient {
-  id: number;
-  email: string;
-  password: string;
-}
+// interface Patient {
+//   id: number;
+//   email: string;
+//   password: string;
+// }
 
 export default function LoginPage() {
 
-  const [patient, setPatient] = useState<Patient>()
+  // const [patient, setPatient] = useState<Patient>()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const navigation = useNavigation()
 
   async function handleLogin() {
-    const patient = await api.get('/session')
+    const data = new FormData();
 
-    if (patient.status === 401) {
-      alert('Email ou senha estão errados! Verifique os dados novamente.')
+    
+    data.append('email', email)
+    data.append('password', password)
+
+    console.log(data)
+
+    const pacient = await api.post('/session', data)
+
+    if(pacient.status === 401) {
+      return alert('Verifique os dados novamente.')
     }
 
-    navigation.navigate('HomePage')
+   navigation.navigate('HomePage')
 
   }
 
@@ -34,14 +42,15 @@ export default function LoginPage() {
       <View>
         <Text style={styles.label}>Email</Text>
         <TextInput style={styles.input}
-          onChangeText={(value) => setEmail(value)}
           value={email}
+          onChangeText={setEmail}
         />
         <Text style={styles.label}>Senha</Text>
         <TextInput
           style={styles.input}
-          onChangeText={(value) => setPassword(value)}
           value={password}
+          onChangeText={setPassword}
+          secureTextEntry
         />
         <TouchableOpacity style={styles.nextButton} onPress={handleLogin}>
           <Text style={styles.nextButtonText}>Entrar</Text>
