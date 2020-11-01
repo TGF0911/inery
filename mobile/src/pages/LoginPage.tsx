@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import api from '../service/api';
 
 
-interface Patient{
+interface Patient {
   id: number;
   email: string;
   password: string;
@@ -13,28 +13,35 @@ interface Patient{
 export default function LoginPage() {
 
   const [patient, setPatient] = useState<Patient>()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const navigation = useNavigation()
 
   async function handleLogin() {
     const patient = await api.get('/session')
 
-    if(patient.status === 401) {
+    if (patient.status === 401) {
       alert('Email ou senha estão errados! Verifique os dados novamente.')
     }
-    
+
     navigation.navigate('HomePage')
-    
+
   }
 
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.label}>Email</Text>
-        <TextInput style={styles.input} />
+        <TextInput style={styles.input}
+          onChangeText={(value) => setEmail(value)}
+          value={email}
+        />
         <Text style={styles.label}>Senha</Text>
         <TextInput
           style={styles.input}
+          onChangeText={(value) => setPassword(value)}
+          value={password}
         />
         <TouchableOpacity style={styles.nextButton} onPress={handleLogin}>
           <Text style={styles.nextButtonText}>Entrar</Text>
@@ -46,7 +53,7 @@ export default function LoginPage() {
         <TouchableOpacity onPress={() => alert('ZZZ')}>
           <Text style={styles.withoutRegister}>Ainda não se cadastrou?</Text>
         </TouchableOpacity>
-        
+
 
       </View>
     </View>
