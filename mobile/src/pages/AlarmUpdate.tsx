@@ -14,7 +14,7 @@ interface RouteParams {
 }
 
 export default function AlarmUpdate() {
-
+  
   const [alarm, setAlarm] = useState<Alarm>()
   const route = useRoute()
   const params = route.params as RouteParams
@@ -45,7 +45,7 @@ export default function AlarmUpdate() {
   function navigateBack(){
     navigation.goBack()
   }
-  const [value, onChangeText] = React.useState('');
+  
  
   return (
     <View style={styles.container}>
@@ -56,17 +56,11 @@ export default function AlarmUpdate() {
         </TouchableOpacity>
      
       </View>
-      <View style={styles.menu}>
-        <Text style={styles.horaTexto}>Hora(HH:MM):</Text>
-        <TextInput
-          style={styles.horaTextoInput}
-          onChangeText={text => onChangeText(text)}
-          value={value}/>
         
         <TouchableOpacity style={styles.nextButton} onPress={handleUpdateAlarm}>
+        <Feather name="save" size={25} color="#fff" />
           <Text style={styles.nextButtonText}>Salvar</Text>
         </TouchableOpacity>
-      </View>
         
     </View>
       
@@ -76,7 +70,7 @@ export default function AlarmUpdate() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"#f0f0f5",
+    backgroundColor: '#d4dadc',
     
   },
   header: {
@@ -120,7 +114,8 @@ const styles = StyleSheet.create({
     backgroundColor:'#fff',
   },
   nextButton: {
-    backgroundColor: "#DD3355",
+    flexDirection:'row',
+    backgroundColor: "#1f6af7",
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
