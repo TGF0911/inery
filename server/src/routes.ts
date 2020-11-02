@@ -25,7 +25,7 @@ routes.get('/medicine/:id', MedicineController.show)
 routes.put('/medicine/:id', uploads.single('photo'), MedicineController.update)
 routes.delete('/medicine/:id', MedicineController.delete)
 
-routes.post('/recipe', RecipeController.create)
+routes.post('/recipe/:medicine_id/:hour/:description', RecipeController.create)
 routes.get('/recipe', RecipeController.index)
 routes.get('/recipe/:id', RecipeController.show)
 routes.put('/recipe/:id',  RecipeController.update)

@@ -30,8 +30,8 @@ export default function MedicinePage() {
     navigation.goBack()
   }
 
-  function handleAddMedicine(medicine_id: number) {
-    navigation.navigate('HorarioPage', {medicine_id})
+  function handleAddMedicine(medicine_id: number, patient_id : number) {
+    navigation.navigate('HorarioPage', {medicine_id, patient_id}, )
   }
 
   function navigateToHorarioPage() {
@@ -46,7 +46,7 @@ export default function MedicinePage() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Image source={logoImg} />
-        <Text style={styles.headerText}>Escolha um medicamento</Text>
+        <Text style={styles.headerText}>Escolha o medicamento</Text>
         <TouchableOpacity onPress={navigateBack}>
           <Feather name="arrow-left" size={28} color="#FF9900" />
         </TouchableOpacity>
@@ -57,7 +57,6 @@ export default function MedicinePage() {
 
         {medicines.map(medicine => {
           return (
-            <TouchableOpacity onPress={() => handleAddMedicine(medicine.id)}> 
             <View style={styles.remedio} key={medicine.id} >
               <View >
                 <Text style={styles.remedioText}>
@@ -73,21 +72,30 @@ export default function MedicinePage() {
                   {medicine.description}
            </Text>
               </View>
-                <Feather name="plus-square" size={28} color="#008db7"/>
-            </View>
+              <TouchableOpacity onPress={() => handleAddMedicine(medicine.id, params.id)}> 
+                <Feather name="plus" size={28} color="#008db7"/>
               </TouchableOpacity>
+            </View>
+
           )
         })}
+
+
+
+
+
+
+
+
+
+
       </ScrollView>
-<<<<<<< HEAD
 
       {/* <TouchableOpacity style={styles.nextButton} onPress={() => navigateToHorarioPage()}>
         <Text style={styles.nextButtonText}>Escolher Horário</Text>
         <Feather name="arrow-right-circle" size={28} color="#fff" />
       </TouchableOpacity> */}
 
-=======
->>>>>>> 849f9acb8b48166b0b3ea42dfb0b6d885cf735be
     </View>
   )
 }

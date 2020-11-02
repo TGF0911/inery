@@ -4,29 +4,40 @@ import Alarm from '../models/Alarm'
 import Recipe from '../models/Recipe'
 import WeekDay from '../models/WeekDay'
 import convertHourToMinutes from '../utils/convertToMinute'
-import recipeView from '../views/recipe.view'
+
 
 export default {
   async create(req: Request, res: Response) {
-    const { description, medicine_id, hour } = req.body
+    const { description, medicine_id, hour } = req.params
 
-    const patient_id = Number(req.headers.authorization)
-
+    const patient_id = 5
     const recipeRepository = getRepository(Recipe)
 
     const alarmRepository = getRepository(Alarm)
 
-    const weeks = req.body.weeks as WeekDay[]
-    // console.log("Fora do map", weeks)
+    const weeks = [
+      {
+        week_day : 1
+      },
+      {
+        week_day : 3
+      },
+      {
+        week_day : 4
+      }
+    ] as WeekDay[]
+   
     const week_days = weeks.map((week: WeekDay) => {
-      // console.log("Dentro do map", week)
+     
       return { week_day: week.week_day }
     })
+
+	console.log(description,' :',medicine_id, ':', hour, ':', patient_id )
 
 
     const recipeData = {
       patient_id,
-      medicine_id,
+      medicine_id : Number(medicine_id),
       description,
     }
     const recipe = recipeRepository.create(recipeData)
